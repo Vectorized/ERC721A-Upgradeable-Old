@@ -3,13 +3,19 @@
 
 pragma solidity ^0.8.4;
 
-import '../ERC721A.sol';
+import "../ERC721AUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 error AllOwnershipsHaveBeenSet();
 error QuantityMustBeNonZero();
 error NoTokensMintedYet();
 
-abstract contract ERC721AOwnersExplicit is ERC721A {
+abstract contract ERC721AOwnersExplicitUpgradeable is Initializable, ERC721AUpgradeable {
+    function __ERC721AOwnersExplicit_init() internal onlyInitializing {
+    }
+
+    function __ERC721AOwnersExplicit_init_unchained() internal onlyInitializing {
+    }
     uint256 public nextOwnerToExplicitlySet;
 
     /**
@@ -45,4 +51,11 @@ abstract contract ERC721AOwnersExplicit is ERC721A {
             nextOwnerToExplicitlySet = endIndex + 1;
         }
     }
+
+    /**
+     * @dev This empty reserved space is put in place to allow future versions to add new
+     * variables without shifting down storage in the inheritance chain.
+     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
+     */
+    uint256[49] private __gap;
 }
